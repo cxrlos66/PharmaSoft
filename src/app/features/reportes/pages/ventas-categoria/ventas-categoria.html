@@ -1,0 +1,63 @@
+<section class="page">
+  <header class="page-header">
+    <h1>Reporte de ventas por categoría</h1>
+  </header>
+
+  <form class="card filtros" [formGroup]="filtros" (ngSubmit)="generar()">
+    <label>
+      Desde
+      <input class="input" type="date" formControlName="desde" />
+    </label>
+    <label>
+      Hasta
+      <input class="input" type="date" formControlName="hasta" />
+    </label>
+    <button class="btn btn-primary" type="submit" [disabled]="cargando()">Generar</button>
+  </form>
+
+  @if (error()) {
+    <p class="alerta" role="alert">{{ error() }}</p>
+  }
+
+  @if (cargando()) {
+    <p class="estado" role="status">Cargando reporte…</p>
+  } @else if (!error() && categorias().length === 0) {
+    <p class="card estado">No hay ventas en el periodo seleccionado.</p>
+  } @else if (!error()) {
+    <div class="card tabla-contenedor">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th scope="col">Categoría</th>
+            <th scope="col">Unidades vendidas</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Comparación</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (categoria of categorias(); track categoria.categoriaId) {
+            <tr>
+              <td>{{ categoria.categoriaNombre }}</td>
+              <td>{{ categoria.cantidadVendida }}</td>
+              <td>{{ categoria.montoTotal | currency:'PEN':'S/ ' }}</td>
+              <td>
+                <div class="barra-fondo" role="img"
+                  [attr.aria-label]="'Monto relativo de ' + categoria.categoriaNombre">
+                  <div class="barra-valor" [style.width.%]="porcentaje(categoria.montoTotal)"></div>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td><strong>Total general</strong></td>
+            <td><strong>{{ totalUnidades() }}</strong></td>
+            <td><strong>{{ totalMonto() | currency:'PEN':'S/ ' }}</strong></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  }
+</section>

@@ -1,0 +1,31 @@
+.filtros {
+  display: flex;
+  align-items: end;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.filtros label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.estado { margin-top: 18px; }
+.tabla { min-width: 620px; }
+.tabla td:nth-child(2), .tabla td:nth-child(3) { white-space: nowrap; }
+.tabla tfoot td { font-weight: 700; }
+.barra-fondo {
+  width: 100%;
+  min-width: 100px;
+  height: 18px;
+  background: #e9f1fb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.barra-valor {
+  height: 100%;
+  background: #2363ad;
+  border-radius: 6px;
+}
