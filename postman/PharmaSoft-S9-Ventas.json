@@ -1,0 +1,446 @@
+{
+  "info": {
+    "name": "PharmaSoft - S9 Ventas",
+    "description": "Colección de pruebas de Actividad Autónoma, Sesión 9. Los casos marcados PENDIENTE requieren ejecución real.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Salud de API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes disponibles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clientes?pagina=0&tamanio=100",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clientes?pagina=0&tamanio=100"
+          ]
+        },
+        "description": "Confirmar qué cliente está inactivo antes de pruebas."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Productos y stock",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?pagina=0&tamanio=100",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "productos?pagina=0&tamanio=100"
+          ]
+        },
+        "description": "Confirmar identificadores reales de los productos."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "V-05 - Producto duplicado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/ventas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ventas"
+          ]
+        },
+        "description": "Ejecutada: 409 La venta repite un producto.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 1\n    },\n    {\n      \"productoId\": 1,\n      \"cantidad\": 1\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(409); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "M-02 - Cliente inactivo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/ventas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ventas"
+          ]
+        },
+        "description": "Ejecutada: 409 El cliente está inactivo.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteId\": 4,\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 1\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(409); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "V-06 - Producto inactivo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/ventas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ventas"
+          ]
+        },
+        "description": "Ejecutada: 409 Producto inactivo.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 7,\n      \"cantidad\": 1\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(409); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "V-02 API - Cantidad cero",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/ventas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ventas"
+          ]
+        },
+        "description": "PENDIENTE: registrar respuesta real, esperada validación de cantidad.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 0\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "V-02 API - Cantidad decimal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/ventas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ventas"
+          ]
+        },
+        "description": "PENDIENTE: observar si el backend rechaza decimal; no presuponer código.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteId\": 1,\n  \"detalles\": [\n    {\n      \"productoId\": 1,\n      \"cantidad\": 2.5\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reporte histórico",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reportes/ventas-por-categoria",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reportes",
+            "ventas-por-categoria"
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reporte fecha filtrada",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reportes/ventas-por-categoria?desde=2026-10-09&hasta=2026-10-10",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reportes",
+            "ventas-por-categoria?desde=2026-10-09&hasta=2026-10-10"
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reporte sin resultados",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reportes/ventas-por-categoria?desde=2030-01-01&hasta=2030-01-02",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reportes",
+            "ventas-por-categoria?desde=2030-01-01&hasta=2030-01-02"
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Buscar ventas con filtros",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/ventas/buscar?pagina=0&tamanio=10&clienteId=1&desde=2026-10-09&hasta=2026-10-10",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ventas",
+            "buscar?pagina=0&tamanio=10&clienteId=1&desde=2026-10-09&hasta=2026-10-10"
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fechas inválidas en API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/ventas/buscar?desde=2026-10-10&hasta=2026-10-09",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ventas",
+            "buscar?desde=2026-10-10&hasta=2026-10-09"
+          ]
+        },
+        "description": "Pendiente registrar evidencia Postman; la SPA bloquea el envío."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código HTTP esperado\", function () { pm.response.to.have.status(409); });"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1",
+      "type": "string"
+    }
+  ]
+}
