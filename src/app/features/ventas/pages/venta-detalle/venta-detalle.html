@@ -1,0 +1,26 @@
+<section class="page">
+ <header class="page-header no-imprimir"><h1>Comprobante de venta</h1><div class="botones">
+  <a routerLink="/ventas" class="btn">Volver a ventas</a><button type="button" class="btn btn-primary" [disabled]="!venta()" (click)="imprimirComprobante()">🖨 Imprimir</button>
+ </div></header>
+ @if(nueva()){<div class="exito no-imprimir">Venta registrada correctamente.</div>}
+ @if(error()){<div class="alerta" role="alert">{{ error() }}</div>}
+ @if(venta();as datos){
+  <article class="card comprobante" [class.anulada]="datos.estado==='ANULADA'">
+   <header class="negocio"><div><strong class="marca">PharmaSoft</strong><p>Botica · Sistema de ventas</p></div>
+    <div class="identificador"><strong>Comprobante N.º {{ numero() }}</strong><span>{{ datos.fecha | date:'dd/MM/yyyy HH:mm' }}</span></div></header>
+   @if(datos.estado==='ANULADA'){<p class="sello">ANULADA</p>}
+   <div class="info"><p><strong>Cliente:</strong> {{ datos.clienteNombre }}</p>
+    @if(cliente();as cliente){<p><strong>DNI:</strong> {{ cliente.dni }}</p>}
+    <p><strong>Estado:</strong> {{ datos.estado }}</p></div>
+   <div class="tabla-contenedor"><table class="tabla"><thead><tr><th>Producto</th><th class="numero">Cantidad</th><th class="numero">Precio</th><th class="numero">Subtotal</th></tr></thead>
+    <tbody>@for(detalle of datos.detalles;track detalle.productoId){
+     <tr><td>{{ detalle.productoNombre }}</td><td class="numero">{{ detalle.cantidad }}</td><td class="numero">{{ detalle.precio | currency:'PEN':'S/ ' }}</td>
+      <td class="numero">{{ detalle.subtotal | currency:'PEN':'S/ ' }}</td></tr>
+    }</tbody>
+    <tfoot><tr><td colspan="2">Total de unidades: {{ unidades() }}</td><td><strong>Total</strong></td><td class="numero total">{{ datos.total | currency:'PEN':'S/ ' }}</td></tr></tfoot>
+   </table></div>
+   <p class="solo-impresion pie">Gracias por su compra · Impreso el {{ fechaImpresion() | date:'dd/MM/yyyy HH:mm' }}</p>
+  </article>
+  @if(datos.estado==='REGISTRADA'){<div class="acciones no-imprimir"><button type="button" class="btn btn-peligro" [disabled]="anulando()" (click)="anular()">{{ anulando()?'Anulando…':'Anular venta' }}</button></div>}
+ }
+</section>

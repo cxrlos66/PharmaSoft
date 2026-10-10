@@ -1,0 +1,5 @@
+.botones{display:flex;gap:9px;flex-wrap:wrap}.comprobante{max-width:850px;margin:auto;position:relative;overflow:hidden}
+.negocio{display:flex;justify-content:space-between;gap:20px;border-bottom:2px solid #244b7a;padding-bottom:15px}.marca{font-size:1.65rem;color:#164783}.negocio p{color:#69758b;margin:4px 0}.identificador{text-align:right;display:flex;flex-direction:column;gap:5px}.identificador span{color:#64748b}.info{padding:13px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.info p{margin:4px 0}.numero{text-align:right;white-space:nowrap}.total{font-size:1.15rem;color:#164783}.pie{text-align:center;margin-top:40px;border-top:1px solid #aaa;padding-top:12px}
+.sello{position:absolute;top:95px;left:50%;transform:translateX(-50%) rotate(-17deg);font-weight:900;font-size:3rem;color:#b22a2a;border:5px solid #b22a2a;padding:5px 20px;opacity:.55;pointer-events:none}.acciones{margin:15px auto;max-width:850px;text-align:right}
+@media(max-width:560px){.info{grid-template-columns:1fr}.negocio{flex-direction:column}.identificador{text-align:left}}
+@media print {.comprobante{max-width:none;border:0;box-shadow:none;margin:0}.sello{opacity:.75}}
