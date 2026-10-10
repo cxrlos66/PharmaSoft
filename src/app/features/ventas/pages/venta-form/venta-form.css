@@ -1,0 +1,9 @@
+h2{margin:18px 0 12px;font-size:1.07rem}
+.buscador{position:relative;max-width:720px}
+.buscador>.input{width:100%}
+.resultados{list-style:none;margin:5px 0 0;padding:5px;background:#fff;border:1px solid #c9d3e3;border-radius:9px;box-shadow:0 7px 18px #1c345019}
+.resultados button{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;width:100%;text-align:left;border:0;background:transparent;border-radius:5px;padding:11px;font:inherit;cursor:pointer}
+.resultados button:hover,.resultados button:focus-visible{background:#eaf2ff}
+.dato{color:#65728a;font-size:.82rem}.bloque{display:block;margin-top:4px}.agregar{margin-left:auto;color:#2156a7;font-weight:700}.ya{color:#1f7355;font-weight:600;font-size:.82rem}
+.elegido{display:flex;max-width:720px;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#eaf2ff;border-radius:8px}
+.detalle{margin-top:15px}.detalle td{vertical-align:top}.cantidad{width:92px}.monto{text-align:right;white-space:nowrap}.total{font-size:1.1rem;color:#154b8b}.vacio{text-align:center;color:#65728a;padding:24px}.error{display:block;color:#b1232b;margin-top:5px;font-size:.83rem}.acciones{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.confirmacion{margin-top:18px;border:2px solid #d9a11b}.nota{color:#53667a}.check{display:flex;align-items:center;gap:8px}
