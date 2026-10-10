@@ -1,0 +1,33 @@
+<section class="page">
+ <header class="page-header"><h1>Consulta de ventas</h1><div class="botones no-imprimir">
+  <button type="button" class="btn" [disabled]="!resultado()?.contenido?.length" (click)="imprimirConsulta()">🖨 Imprimir consulta</button>
+  <a routerLink="nueva" class="btn btn-primary">+ Nueva venta</a></div></header>
+ <p class="solo-impresion resumen">Filtros: {{ resumenFiltros() }} · Impreso el {{ ahora() | date:'dd/MM/yyyy HH:mm' }}</p>
+ <form [formGroup]="filtros" (ngSubmit)="buscar()" class="card filtros no-imprimir">
+  <label>Cliente <select class="input" formControlName="clienteId"><option [ngValue]="null">Todos</option>
+   @for(cliente of clientes();track cliente.id){<option [ngValue]="cliente.id">{{ cliente.apellidos }}, {{ cliente.nombres }}</option>}
+  </select></label>
+  <label>Estado <select class="input" formControlName="estado"><option [ngValue]="null">Todos</option><option value="REGISTRADA">Registrada</option><option value="ANULADA">Anulada</option></select></label>
+  <label>Desde <input class="input" type="date" formControlName="desde"></label>
+  <label>Hasta <input class="input" type="date" formControlName="hasta"></label>
+  <div class="botones"><button type="button" class="btn" (click)="limpiar()">Limpiar</button><button type="submit" class="btn btn-primary">Buscar</button></div>
+ </form>
+ @if(error()){<div class="alerta" role="alert">{{ error() }}</div>}
+ @if(cargando()){<p>Buscando ventas…</p>}
+ @else if(resultado();as datos){
+  <div class="tabla-contenedor"><table class="tabla"><thead><tr><th>N.º</th><th>Fecha</th><th>Cliente</th><th>Ítems</th><th class="monto">Total</th><th>Estado</th><th class="no-imprimir"></th></tr></thead>
+   <tbody>@for(venta of datos.contenido;track venta.id){
+    <tr><td>{{ venta.id }}</td><td>{{ venta.fecha | date:'dd/MM/yyyy HH:mm' }}</td><td>{{ venta.clienteNombre }}</td>
+     <td>{{ venta.detalles.length }}</td><td class="monto">{{ venta.total | currency:'PEN':'S/ ' }}</td>
+     <td><span class="badge" [class.inactivo]="venta.estado==='ANULADA'">{{ venta.estado }}</span></td>
+     <td class="no-imprimir acciones-fila"><a class="btn" [routerLink]="[venta.id]">Ver</a>
+      <a class="btn" [routerLink]="[venta.id]" [queryParams]="{imprimir:1}" aria-label="Imprimir comprobante">🖨</a></td></tr>
+   } @empty {<tr><td colspan="7" class="vacio">No hay ventas con esos filtros.</td></tr>}</tbody>
+  </table></div>
+  <footer class="paginador"><span class="solo-impresion">Total registrado en la página (sin anuladas): {{ totalPagina() | currency:'PEN':'S/ ' }} · </span>
+   <span>Página {{ datos.pagina+1 }} de {{ datos.totalPaginas||1 }} · {{ datos.totalElementos }} ventas</span>
+   <button type="button" class="btn no-imprimir" [disabled]="datos.primera" (click)="irA(datos.pagina-1)">Anterior</button>
+   <button type="button" class="btn no-imprimir" [disabled]="datos.ultima" (click)="irA(datos.pagina+1)">Siguiente</button>
+  </footer>
+ }
+</section>

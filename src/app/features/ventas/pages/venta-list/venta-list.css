@@ -1,0 +1,6 @@
+.filtros{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:12px;align-items:end;margin-bottom:17px}
+.filtros label{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:.88rem}.botones{display:flex;gap:8px}.monto{text-align:right;white-space:nowrap}
+.vacio{text-align:center;color:#68758a;padding:26px}.paginador{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-top:15px;flex-wrap:wrap}.acciones-fila{display:flex;gap:5px}.resumen{margin-bottom:12px;font-size:.86rem}
+@media(max-width:950px){.filtros{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.filtros{grid-template-columns:1fr}}
+@media print {.paginador{justify-content:flex-start}.paginador .solo-impresion{display:inline}}
