@@ -42,7 +42,8 @@ export const rutas: Routes = [
         canActivate: [permisoGuard],
         data: { permiso: 'CATALOGO_LEER' },
         loadComponent: () =>
-          import('./features/categorias/pages/categoria-list').then(m => m.CategoriaList)
+          import('./features/categorias/pages/categoria-list')
+            .then(m => m.CategoriaList)
       },
       {
         path: 'productos',
@@ -50,7 +51,8 @@ export const rutas: Routes = [
         canActivate: [permisoGuard],
         data: { permiso: 'CATALOGO_LEER' },
         loadComponent: () =>
-          import('./features/productos/pages/producto-list').then(m => m.ProductoList)
+          import('./features/productos/pages/producto-list')
+            .then(m => m.ProductoList)
       },
       {
         path: 'clientes',
@@ -58,7 +60,8 @@ export const rutas: Routes = [
         canActivate: [permisoGuard],
         data: { permiso: 'CLIENTES_LEER' },
         loadComponent: () =>
-          import('./features/clientes/pages/cliente-list').then(m => m.ClienteList)
+          import('./features/clientes/pages/cliente-list')
+            .then(m => m.ClienteList)
       },
       {
         path: 'reportes',
@@ -66,7 +69,15 @@ export const rutas: Routes = [
         canActivate: [permisoGuard],
         data: { permiso: 'REPORTES_VER' },
         loadComponent: () =>
-          import('./features/reportes/pages/reporte-list').then(m => m.ReporteList)
+          import('./features/reportes/pages/reporte-list')
+            .then(m => m.ReporteList)
+      },
+      {
+        path: 'mi-cuenta',
+        title: 'Mi cuenta',
+        loadComponent: () =>
+          import('./features/mi-cuenta/mi-cuenta')
+            .then(m => m.MiCuenta)
       },
       {
         path: 'acceso-denegado',
