@@ -37,13 +37,13 @@ export const rutas: Routes = [
           import('./features/ventas/ventas.routes').then(m => m.rutasVentas)
       },
       {
-        path: 'categorias',
-        title: 'Categorías',
+        path: 'productos/nuevo',
+        title: 'Nuevo producto',
         canActivate: [permisoGuard],
-        data: { permiso: 'CATALOGO_LEER' },
+        data: { permiso: 'CATALOGO_ESCRIBIR' },
         loadComponent: () =>
-          import('./features/categorias/pages/categoria-list')
-            .then(m => m.CategoriaList)
+          import('./features/productos/pages/producto-list')
+            .then(m => m.ProductoList)
       },
       {
         path: 'productos',
@@ -53,6 +53,15 @@ export const rutas: Routes = [
         loadComponent: () =>
           import('./features/productos/pages/producto-list')
             .then(m => m.ProductoList)
+      },
+      {
+        path: 'categorias',
+        title: 'Categorías',
+        canActivate: [permisoGuard],
+        data: { permiso: 'CATALOGO_LEER' },
+        loadComponent: () =>
+          import('./features/categorias/pages/categoria-list')
+            .then(m => m.CategoriaList)
       },
       {
         path: 'clientes',
